@@ -1,0 +1,5 @@
+(defun even (n)
+  (do ((x 0 (+ x 2)) (sum 0))
+      ((> x n) sum)
+    (print x)
+    (setf sum (+ sum x))))

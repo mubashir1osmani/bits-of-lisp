@@ -1,0 +1,6 @@
+(defun min-max (values)
+  (let ((max (car values)) (min (car values)))
+    (dolist (i values)
+      (when (> i max) (setf max i))
+      (when (< i min) (setf min i)))
+    (list max min)))

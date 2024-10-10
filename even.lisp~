@@ -1,0 +1,5 @@
+(defun even (n)
+  (when (oddp n)
+    (dotimes (i n sum)
+      (print (evenp i))
+      (+ sum i)) sum))

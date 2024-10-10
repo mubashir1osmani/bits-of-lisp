@@ -1,0 +1,7 @@
+LEGAL DOCUMENTnn
+CLIENT: (create-legal-document)n
+LAWYER: John Cenan
+CASE TYPE: Murdern
+CASE NUMBER: 2901n
+DATE: October 9, 2024nn
+[Insert legal content relevant to Murder here.]n
