@@ -1,0 +1,6 @@
+(defun even (n)
+  (let ((sum 0))
+    (dotimes (i n sum)
+      (when (evenp i)
+        (print i)
+        (+ i sum)))))

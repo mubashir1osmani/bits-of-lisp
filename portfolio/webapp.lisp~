@@ -1,0 +1,6 @@
+(defvar *server* (make-instance 'tbnl:easy-acceptor
+                                :port 33333
+                                :address "0.0.0.0"))
+
+(defun start ()
+  (tbnl:start *server*))

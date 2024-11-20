@@ -1,0 +1,7 @@
+(defun grade (numeric-value)
+  (case (floor numeric-value 10)
+    (10 "A+")
+    (9 "A")
+    (8 "A")
+    (7 "B")
+    (otherwise "F")))

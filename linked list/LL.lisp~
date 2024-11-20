@@ -1,0 +1,18 @@
+"Linked lists seem better at insertion and deletion but they make it harder to access random elements from the list, 
+you have to access every node to reach an element, lets say at position 5."
+
+
+"Linked Lists BIG O: O(1)- constant, whereas arrays BIG O: O(n) - linear"
+"They are dynamic and their size can be changed
+
+Doubly linked lists reference to both first and last node element"
+
+"DISADVANTAGES: 
+1. LIMITED SEARCHING AND SORTING ALGORITHMS WITHOUT INDEXING, WOULD HAVE TO SORT FIRST
+2. CANT ACCCES MIDDLE NODES, NEED TO ITERATE THROUGH NODES
+3. EACH NODE REQUIRES MEMORY, VALUE -> ADDRESS"
+
+(defun odd-list (list &optional (acc 0))
+  (cond ((null list) acc)
+        ((oddp (car list)) (odd-list (cdr list) (cons (car list) acc)))
+        (t (odd-list cdr acc))))

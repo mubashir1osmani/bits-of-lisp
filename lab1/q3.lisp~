@@ -1,0 +1,12 @@
+(defvar *n*)
+
+(defun max-capacity (a *n*))
+
+(defun enter-garage-a (a)
+  print ("remaining spots left")
+  (setf *n* (- *n* a)))
+
+
+(defun enter-garage-b (b)
+  print("remaining spots left in b:")
+  (setf *n* (- *n* b)))

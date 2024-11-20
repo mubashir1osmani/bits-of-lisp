@@ -1,0 +1,62 @@
+(defparameter *learning-rate* 0.1)
+
+(defun sigmoid (x)
+  (/ 1 (+ 1 (exp (- x)))))
+
+(defun sigmoid-derivative (x)
+  (* (sigmoid x) (- 1 (sigmoid x))))
+
+(defun create-network (input-size hidden-size output-size)
+  (let ((weights1 (make-array (list input-size hidden-size) :initial-element 0))
+        (weights2 (make-array (list hidden-size output-size) :initial-element 0)))
+    ;; Initialize weights randomly
+    (loop for i from 0 below input-size
+          do (loop for j from 0 below hidden-size
+                   do (setf (aref weights1 i j) (random 1.0))))
+    (loop for i from 0 below hidden-size
+          do (loop for j from 0 below output-size
+                   do (setf (aref weights2 i j) (random 1.0))))
+    (list weights1 weights2)))
+
+(defun feedforward (network inputs)
+  (let* ((weights1 (first network))
+         (weights2 (second network))
+         (hidden (map 'vector
+                       #'sigmoid
+                       (map 'vector
+                         (lambda (i)
+                           (reduce #'+ (map 'vector
+                                           (lambda (j)
+                                             (* (aref weights1 j i) (aref inputs j)))
+                                           (loop for j from 0 below (array-dimension weights1 0))))))
+                         (loop for i from 0 below (array-dimension weights1 1)))))
+         (output (map 'vector
+                       #'sigmoid
+                       (map 'vector
+                         (lambda (i)
+                           (reduce #'+ (map 'vector
+                                           (lambda (j)
+                                             (* (aref weights2 j i) (aref hidden j)))
+                                           (loop for j from 0 below (array-dimension weights2 0))))))
+                         (loop for i from 0 below (array-dimension weights2 1))))))
+    (values hidden output)
+
+(defun train (network inputs expected-outputs epochs)
+  (dotimes (epoch epochs)
+    (loop for i from 0 below (length inputs)
+          do (let* ((input (aref inputs i))
+                     (expected (aref expected-outputs i))
+                     (hidden output)
+                     (output (feedforward network input)))
+               ;; Backpropagation would go here to update weights
+               ))))
+
+(defun main ()
+  (let ((network (create-network 2 2 1)))
+    ;; Train with dummy data (XOR problem)
+    (train network (vector (vector 0 0) (vector 0 1) (vector 1 0) (vector 1 1))
+          (vector (vector 0) (vector 1) (vector 1) (vector 0))
+          10000)
+    (multiple-value-bind (hidden output)
+        (feedforward network (vector 1 0))
+      (format t "Output for (1, 0): ~A~%"))))

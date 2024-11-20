@@ -1,0 +1,4 @@
+Linked Lists are better at insertion and deletion but the
+Operations are O(1) - constant
+whereas arrays are O(n) - linear
+

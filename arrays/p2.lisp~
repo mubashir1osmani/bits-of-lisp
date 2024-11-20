@@ -1,0 +1,7 @@
+;; this is for my winter arc
+
+(defun sum-squares (array)
+  (let ((sum 0))
+    (dotimes (i array)
+      (setf sum (+ sum (* i i))))
+    sum))

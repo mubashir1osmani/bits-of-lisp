@@ -1,0 +1,27 @@
+(defun lookup (e env)
+  (let ((v (assoc e env)))
+    (if v (cdr v)
+        (wrong "Unbound-variable: ~S~%" e))))
+
+
+(defun update! (var env value)
+  (let ((kv (assoc var env)))
+    (setf (cdr kv) value)))
+
+
+(defun eprogn (el env)
+  (let ((result (evaluate (car el) env)))
+    (dolist (e (cdr el) result)
+      (setf result (evaluate e env)))))
+
+
+(defun invoke (fn args)
+  (if (procedure? fn)
+      (apply fn args)
+      (wrong "Could not evaluate function: ~S" fn)))
+
+
+(defun evlist (lis env)
+  (when lis
+    (let ((a (evaluate (car lis) env)))
+      (cons a (evlist (cdr lis) env)))))

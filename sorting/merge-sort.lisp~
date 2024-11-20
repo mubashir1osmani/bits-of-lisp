@@ -1,0 +1,24 @@
+(defun merge-sort (list comp)
+  "Sort the list comparing items using comp as relational operator"
+  (if (null (rest list)) list
+      (let ((half (floor (length list) 2)))
+        (merge-lists (merge-sort (subseq list 0 half) comp)
+                     (merge-sort (subseq list half) comp)
+                     comp))))
+
+
+(defun merge-lists (l1 l2 comp)
+  (let ((res ()))
+    (do ()
+        ((and (null l1) (null l2)))
+      (let ((i1 (first l1))
+            (i2 (first l2)))
+        (cond ((null i1) (dolist (i l2) (push i res))
+              (return))
+              ((null i2) (dolist (i l1) (push i res))
+               (return))
+              ((funcall comp i1 i2) (push i1 res)
+               (setf l1 (rest l1)))
+              (t (push i2 res)
+                 (setf l2 (rest l2))))))
+    (reverse res)))

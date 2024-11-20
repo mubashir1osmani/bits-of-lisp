@@ -1,0 +1,26 @@
+; SLIME 2.30.git
+CL-USER> (defun fact (n)
+           (if (= n 0)
+               (* n (fact (- n 1)))))
+FACT
+CL-USER> (fact 5)
+NIL
+CL-USER> 
+FACT
+CL-USER> (fact 5)
+NIL
+CL-USER> (defun fact (n)
+  (if (> n 0)
+      (* n (fact (- n 1)))))
+WARNING: redefining COMMON-LISP-USER::FACT in DEFUN
+FACT
+CL-USER> (fact 5)
+; Evaluation aborted on #<TYPE-ERROR expected-type: NUMBER datum: NIL>.
+CL-USER> (defun fact (n)
+  (if (= n 1)
+      (* n (fact (- n 1)))))
+WARNING: redefining COMMON-LISP-USER::FACT in DEFUN
+FACT
+CL-USER> (fact 5)
+NIL
+CL-USER> 

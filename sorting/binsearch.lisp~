@@ -1,0 +1,8 @@
+(defun bin-search (val vec &optional (pos 0))
+  (if (> (length vec) 1)
+      (let* ((midpt (floor (length vec) 2))
+             (midel (aref vec midpt)))
+        (cond ((> midel val) (bin-search (val (rtl:slice vec midpt)) (+ pos midpt)))
+              ((< midel val) (bin-search (val (rtl:slice vec midpt)) pos)))
+        (when (= pos val)
+          pos))))

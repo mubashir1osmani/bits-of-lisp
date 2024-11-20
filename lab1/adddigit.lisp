@@ -1,0 +1,7 @@
+(defun addDigit (num)
+  (let ((sum 0))
+    (do ((rem (mod num 10)))
+        ((= num 0) sum)
+      (setf sum (+ sum rem))
+      (setf num (floor num 10))
+      (print num))))
