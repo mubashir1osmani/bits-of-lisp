@@ -1,0 +1,5 @@
+(defstruct node id edges)
+(defstruct edge src dst label)
+
+(defstruct (graph (:conc-name nil))
+  (nodes (make-hash-table)))  ;; mapping of node ids to nodes
