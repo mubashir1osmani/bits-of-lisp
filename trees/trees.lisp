@@ -69,20 +69,13 @@ A = Existing left child
                                                            (make-multiple-nodes :keys "b")
                                                            (make-multiple-nodes :keys "c")))))))))
 
-(defun multiple-nodes-value (n)
-  (car n))
-
-(defun multiple-nodes-children (n)
-  (cdr n))
 
 
-(defun search-tree (value tree) ;; using DFS algorithm
-  (flet ((walk (node) ;; bryson is the value we need to find
-           (if (equal value (multiple-nodes-value node))
-               (return-from search-tree node)
-               (dolist (child (multiple-nodes-children node) nil)
-                 (walk child)))))
-    (walk tree)))
+(defun search-tree (value tree)
+  (when (null tree)
+    (if (equal (car tree) value)
+	value
+	(cdr tree))))
 
 
 
