@@ -1,0 +1,21 @@
+;; assoc - look up an entry
+
+(defvar *words* '((one . un) (two . deux) (three . trois) (four . quatre) (five . cinq)))
+
+;; CL-USER> (assoc 'four *words*) -> returns the a-list (four . quatre)
+
+;; same with remove keyword
+					; to note, look up and remove - search the list sequentially so its O(n). and push, cons are O(1)
+
+(defvar *cities* '((toronto . ontario) (montreal . quebec) (laval . quebec) (halifax . novascotia)))
+
+(defun look-up (name list)
+  (loop :for (key) in *cities*
+	:do (pprint key)))
+
+
+(defparameter *h* (make-hash-table))
+
+(defun add-ppl (name year)
+  (loop :for (key value) :in *h*
+	:do (setf (gethash name *h*) year)))
