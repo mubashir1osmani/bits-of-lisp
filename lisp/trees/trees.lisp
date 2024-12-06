@@ -49,7 +49,7 @@ A = Existing left child
 
 "same as diagram abive"
 
-                                        ; binary, terenary, quarternary
+; binary, terenary, quarternary
 
 (defstruct (multiple-nodes (:conc-name nil))  ;; binary, terenary.. 
   keys
@@ -72,10 +72,48 @@ A = Existing left child
 
 
 (defun search-tree (value tree)
-  (when (null tree)
-    (if (equal (car tree) value)
-	value
-	(cdr tree))))
+  "Searches for a value in a multiple-node tree."
+  (cond ((null tree) nil)
+	((listp tree)
+	 (search-tree value (car tree)))
+        ((equal value (keys tree)) value)
+	((children tree)
+	 (some #'(lambda (child)
+		   (search-tree value child))
+	       (children tree)))
+	(t nil)))
+
+
+
+"Write function (REPLACE-ROOT v nv tree) that replaces in the tree all key values that match with ."
+
+(defun replace-root (v nv tree)
+  (cond ((null tree) nil)
+	((listp tree)
+	 (replace-root v nv (car tree)))
+	((equal v (keys tree)) (setf (keys tree) nv) t)
+	((children tree)
+	 (dolist (child (children tree))
+	   (replace-root v nv child)))
+	(t nil)))
+
+(defun replace-root-err (v nv tree)
+  (let ((found nil))
+    (cond ((null tree) nil)
+	  ((listp tree)
+	   (replace-root v nv (car tree)))
+	  ((equal v (keys tree)) (setf (keys tree) nv) t)
+	  ((children tree)
+	   (dolist (child (children tree))
+	     (replace-root v nv child)))
+	  (t nil))
+    (if found
+	t
+	(format t "~&Value ~A not found in tree~%" v))))
+
+
+
+
 
 
 

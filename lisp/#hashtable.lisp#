@@ -83,7 +83,6 @@ would take O(n) - consecutive, O(1) - evenly
       (incf (ht-count ht))
       (add-item key val))))
 
-
 (defun ht-print (ht)
   (let* ((kvs (ht-array ht))
 	 (size (length kvs)))
@@ -91,10 +90,3 @@ would take O(n) - consecutive, O(1) - evenly
       (let ((kv (aref kvs i)))
 	(when kv (format t "Key: ~s ~a Value: ~s~%" (car kv) #\tab (cdr kv)))))))
 
-
-(defun ht-remove (key ht)
-  (multiple-value-bind (val pos) (ht-get key ht)
-    (when val
-      (setf (aref (ht-array ht) pos) :deleted)
-      (decf (ht-count ht))
-      t)))
