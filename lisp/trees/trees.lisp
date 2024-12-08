@@ -112,6 +112,70 @@ A = Existing left child
 	(format t "~&Value ~A not found in tree~%" v))))
 
 
+;; pre-dfs traversal
+
+(defun pre-dfs (fn root)
+  (when root
+    (funcall fn (key root))
+    (dolist (child (children root))
+      (pre-dfs fn child))))
+
+
+;; post-dfs : prints children first then root
+
+(defun post-dfs (fn root)
+  (dolist (child (children root))
+    (post-dfs fn child))
+  (funcall fn (key root)))
+
+
+;; bfs - prints every breadth/row first.
+
+(defun bfs (fn nodes)
+  (let ((next-level ()))
+    (dolist (node (rtl:mklist nodes))
+      (funcall fn (key node))
+      (dolist (child (children node))
+	(push child next-level)))
+    (when next-level
+      (bfs fn (reverse next-level)))))
+
+;; time complexity: this function has two loops so prob O(n^2)
+
+
+;; count data elements in a tree node data struct
+
+(defstruct (t-node (:conc-name nil))
+  key
+  children)
+
+;; can use dfs (post or pre-order) since both are pretty straightforward
+
+
+(defstruct (bt-node (:conc-name nil))
+  key
+  (lc nil) (rc nil))
+
+; verif-tree: check if the given expression is a correct binary tree
+
+"    +
+   /   \
+  *     6
+ / \
+2  3.4
+
+"
+
+; can use dfs post order to get the children first then pair it with the key values
+
+(defun verif-tree (node)
+  (cond ((null node) nil)
+	((and (null (rc node)) (null (lc node))))
+	((and (not (null (lc node))) (not (null (rc node))))
+	 (and (member (key node) '(+ - / *))
+	      (verif-tree (lc node))
+	      (verif-tree (rc node))))
+	(t nil)))
 
 
 
