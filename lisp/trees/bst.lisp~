@@ -1,0 +1,16 @@
+					; binary search trees are sorted trees where the rc values are greater than root value and lc is lesser
+
+(defstruct (bst (:conc-name nil))
+  key
+  (lc nil) (rc nil))
+
+
+(defun bst-insert (obj bst comp)
+  (if (null bst) (make-node :key obj)
+      (let ((root (key bst))
+	    (left (lc bst))
+	    (right (rc bst)))
+	(cond ((funcall comp obj root) (setf (lc bst) (bst-insert obj left comp)))
+	      ((funcall comp root obj) (setf (rc bst) (bst-insert obj right comp)))
+	      (t bst))
+	bst)))

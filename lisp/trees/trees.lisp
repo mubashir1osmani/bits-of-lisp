@@ -179,8 +179,6 @@ A = Existing left child
 
 
 
-
-
 ;; end of class brainstorming
 
 (defun sum(a)

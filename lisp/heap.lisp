@@ -41,3 +41,9 @@
 				(heap-down vec child end)))))
 	vec)
 
+
+(defun heapify (vec)
+  (let ((mid (floor (length vec) 2))) ; mid is a leaf node
+    (dotimes (i mid)
+      (heap-down vec (- mid i 1)))) ; mid-1 is an internal node
+  vec)
